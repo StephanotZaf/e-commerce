@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client
+class Client implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -41,12 +42,17 @@ class Client
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $hash;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
     private $commandes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -106,14 +112,14 @@ class Client
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getHash(): ?string
     {
-        return $this->password;
+        return $this->hash;
     }
 
-    public function setPassword(string $password): self
+    public function setHash(string $hash): self
     {
-        $this->password = $password;
+        $this->hash = $hash;
 
         return $this;
     }
@@ -147,5 +153,48 @@ class Client
         }
 
         return $this;
+    }
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->nomClient." ".$this->getPrenomClient();
+        // to show the id of the Category in the select
+        return $this->id;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->hash;
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

@@ -27,7 +27,7 @@ class Livraison
     private $adresseLivraison;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\facture", inversedBy="livraisons")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Facture", inversedBy="livraisons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $facture;

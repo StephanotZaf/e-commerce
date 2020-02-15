@@ -46,7 +46,7 @@ class Produit
     private $promotion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\fournisseur", inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="produits")
      * @ORM\JoinColumn(nullable=false)
      */
     private $fournisseur;
@@ -156,12 +156,12 @@ class Produit
         return $this;
     }
 
-    public function getFournisseur(): ?fournisseur
+    public function getFournisseur(): ?Fournisseur
     {
         return $this->fournisseur;
     }
 
-    public function setFournisseur(?fournisseur $fournisseur): self
+    public function setFournisseur(?Fournisseur $fournisseur): self
     {
         $this->fournisseur = $fournisseur;
 
@@ -252,5 +252,12 @@ class Produit
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->codeProduit." ".$this->libelleProduit;
+        // to show the id of the Category in the select
+        return $this->id;
     }
 }

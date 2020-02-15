@@ -29,7 +29,7 @@ class Commande
     private $etatCommande;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\client", inversedBy="commandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
