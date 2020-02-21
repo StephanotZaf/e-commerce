@@ -95,13 +95,7 @@ class AppClientAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        $credentials = [
-            'email' => $request->request->get('email'),
-            'hash' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
-        ];
-        $client = $this->entityManager->getRepository(Client::class)->findOneBy(['email' => $credentials['email']]);
-        dd($client);
+
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 

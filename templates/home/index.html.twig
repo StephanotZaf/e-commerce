@@ -3,6 +3,7 @@
 {% block title %}Bienvenue{% endblock %}
 
 {% block body %}
+	{#{{ dump(app.user) }}#}
 {#
 
 
@@ -116,7 +117,9 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="{{ asset('assets/images/home/product1.jpg') }}" alt="" />
+                                            {% if produitAll.imageName %}
+												<img src="{{ vich_uploader_asset(produitAll, 'imageFile') }}" alt="" />
+                                            {% endif %}
 											<h2>{{ produitAll.prixUnitaireDetails }}</h2>
 											<p>{{ produitAll.libelleProduit }}</p>
 											<a href="{{ path('cart_add', {'id': produitAll.id}) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ajouter au panier</a>

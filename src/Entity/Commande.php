@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Commande
 {
@@ -43,6 +44,29 @@ class Commande
      * @ORM\OneToMany(targetEntity="App\Entity\Livraison", mappedBy="commande")
      */
     private $livraisons;
+
+    /**
+     * permet d'initialiser les slug du produit
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeDate(){
+        if(empty($this->dateCommande)){
+            $dateCommande = new \DateTime();
+            $this->dateCommande = $dateCommande;
+        }
+    }
+
+    /**
+     * permet d'initialiser l'etat
+     *
+     * @ORM\PrePersist
+     */
+    public function initializeState(){
+
+            $this->etatCommande = 0;
+    }
 
     public function __construct()
     {

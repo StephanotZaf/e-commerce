@@ -18,7 +18,6 @@ class CartService{
     public function add(int $id){
 
         $panier = $this->session->get('panier', []);
-
         if(!empty($panier[$id])){
             $panier[$id]++;
         } else {
@@ -62,7 +61,7 @@ class CartService{
     public function getTotal():float {
         $total=0;
         foreach ($this->getFullCart() as $item) {
-            $total +=$item['product']->getPrixUnitaireGros() * $item['quantity'];
+            $total +=$item['product']->getPrixUnitaireDetails() * $item['quantity'];
         }
         return $total;
     }
